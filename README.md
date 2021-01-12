@@ -1,1 +1,0 @@
-# photo_search_app
