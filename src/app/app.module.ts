@@ -6,39 +6,35 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlickrApiService } from '../services/flickr-api.service';
 import { HttpClientModule } from '@angular/common/http';
-
-// import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-// import {HttpModule, JsonpModule} from '@angular/http';
-// import { AppComponent } from './app.component';
-// import {MaterialRootModule, MdInputModule, MaterialModule} from '@angular/material';
-// import {WelcomeComponent} from './welcome/welcome.component';
-// import { TopNavbarComponent } from './top-navbar/top-navbar.component';
-// import { FullPageSpinnerComponent } from './full-page-spinner/full-page-spinner.component';
-// import { FooterComponent } from './footer/footer.component';
-// import {AngularFireModule} from 'angularfire2';
-// import {firebaseConfig} from '../environments/firebase.config';
-// import { AgmCoreModule } from 'angular2-google-maps/core';
-// import { MapMarkerComponent } from './map-marker/map-marker.component';
-// import {CommonModule} from '@angular/common';
-// import {MdlModule} from 'angular2-mdl';
-// import {Routes, RouterModule} from '@angular/router';
-// import { JulieComponent } from './julie/julie.component';
-// import { AutocompleteComponent } from './autocomplete/autocomplete.component';
-// import {SERVICE_PROVIDERS} from '../services/service-providers';
-
+import { HomeComponent } from './home/home.component';
+import { HomeDialogComponent } from './home/home-dialog/home-dialog.component';
+import { MatCommonModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatButtonModule } from '@angular/material/button'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const SERVICES = [FlickrApiService] 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    HomeDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
-    
-
+    HttpClientModule,
+    MatCommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
 
   ],
   providers: SERVICES,

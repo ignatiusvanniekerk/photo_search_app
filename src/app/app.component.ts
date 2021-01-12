@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlickrApiService } from '../services/flickr-api.service';
 
 @Component({
@@ -7,10 +7,12 @@ import { FlickrApiService } from '../services/flickr-api.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'pic-a-place';
+export class AppComponent implements OnInit {
+  
+  
+  constructor(private http: FlickrApiService){ }
 
-  constructor(private http: FlickrApiService){
-    this.http.flicrBasic()
+  public ngOnInit(): void{
+    
   }
 }
