@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule } from '@angular/material/card'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const SERVICES = [FlickrApiService] 
 
@@ -35,7 +36,7 @@ const SERVICES = [FlickrApiService]
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-
+    MatCardModule
   ],
   providers: SERVICES,
   bootstrap: [AppComponent]

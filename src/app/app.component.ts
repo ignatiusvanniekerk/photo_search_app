@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   constructor(private flicAPIService: FlickrApiService){ }
 
   async ngOnInit(): Promise<void>{
-    this.backgroundImages = await this.flicAPIService.search_keyword('cat')
+    // this.backgroundImages = await this.flicAPIService.search_keyword('cat')
     console.log("this.backgroundImages", this.backgroundImages)
   }
 
