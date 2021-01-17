@@ -1,0 +1,39 @@
+ 
+  <div id="map"></div>
+  <div id="infowindow-content">
+    <img src="" width="16" height="16" id="place-icon" />
+    <span id="place-name" class="title"></span><br />
+    <span id="place-address"></span>
+  </div>
+
+  <div class="pac-card" id="pac-location-card">
+    <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>World Cities</mat-card-title>
+      <mat-card-subtitle>{{subheading}}</mat-card-subtitle>
+      <div id="pac-container" *ngIf="currentState === 'Search'">
+        <input id="pac-input" type="text" placeholder="Enter a location" />
+      </div>
+    </mat-card-header>
+    <mat-card-content *ngIf="currentState === 'Locations'">
+      <mat-selection-list #city [multiple]="false">
+        <mat-list-option (click)="listChanges(city)" *ngFor="let city of cityLocations" [value]="city">
+          {{city.name}}
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="randomLocations()">RANDOMIZE</button>
+      <button mat-button (click)="selectLocation()" [disabled]="!selectedLocation?.name">GO</button>
+    </mat-card-actions>
+  </mat-card>   
+  </div>
+
+  <section id="navigation-buttons"> 
+    <div class="button-row">
+      <button class="buttons-space" [disabled]="currentState === 'Locations'" mat-raised-button color="primary" >Locations</button>
+      <button class="buttons-space" [disabled]="currentState === 'Search'" mat-raised-button color="primary">Search Locations</button>
+      <button class="buttons-space" [disabled]="currentState === 'Favourites'" mat-raised-button color="primary">Favourites</button>
+    </div>
+  </section>

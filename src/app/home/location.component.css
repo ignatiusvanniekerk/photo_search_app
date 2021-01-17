@@ -76,7 +76,13 @@
   }
   
   .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-image: url('https://svgsilh.com/svg/158348.svg');
     background-size: cover;
   }
   
+  #navigation-buttons{
+    margin: 10px;
+  }
+  .buttons-space{
+    margin: 5px;
+  }

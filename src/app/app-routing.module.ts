@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { LocationComponent } from './home/location.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: LocationComponent },
   // { path: 'second-component', component: SecondComponent },
-  { path: '**', component: HomeComponent },  // Wildcard route for a 404 page
+  { path: '**', component: LocationComponent },  // Wildcard route for a 404 page
 ];
 
 @NgModule({

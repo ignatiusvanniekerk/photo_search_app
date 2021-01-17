@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  flickr: {key: '7d19cd4b2b54708b0d019d688ed002ed' }
+  google_api: {key: 'AIzaSyABXedcAIlWdW2nh8sb9wHaedMT2YnCpps' }
 };
 
 /*

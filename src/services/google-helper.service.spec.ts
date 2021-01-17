@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FlickrApiService } from './flickr-api.service';
+import { GoogleHelperService } from './google-helper.service';
 
-describe('FlickrApiService', () => {
-  let service: FlickrApiService;
+describe('GoogleHelperService', () => {
+  let service: GoogleHelperService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FlickrApiService);
+    service = TestBed.inject(GoogleHelperService);
   });
 
   it('should be created', () => {
