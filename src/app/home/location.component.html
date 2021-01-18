@@ -11,20 +11,38 @@
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>World Cities</mat-card-title>
-      <mat-card-subtitle>{{subheading}}</mat-card-subtitle>
-      <div id="pac-container" *ngIf="currentState === 'Search'">
-        <input id="pac-input" type="text" placeholder="Enter a location" />
-      </div>
+      <mat-card-subtitle>{{subheading}}</mat-card-subtitle>      
     </mat-card-header>
-    <mat-card-content *ngIf="currentState === 'Locations'">
+
+    
+    <mat-card-content *ngIf="currentState === 'Locations' || currentState === 'Favourites'">
       <mat-selection-list #city [multiple]="false">
         <mat-list-option (click)="listChanges(city)" *ngFor="let city of cityLocations" [value]="city">
-          {{city.name}}
+          {{city.name}} 
         </mat-list-option>
       </mat-selection-list>
     </mat-card-content>
-    <mat-card-actions>
+
+
+    <mat-card-content *ngIf="currentState === 'Search'">
+      <div id="pac-container" >
+        <mat-form-field class="example-full-width">
+          <input id="pac-input"  matInput [formControl]="autocompleteFormControl" placeholder="Enter a location"> 
+
+        </mat-form-field>
+        <i [ngClass]="favoriteCheck()" class="fav" (click)="saveToFav()" aria-hidden="true"></i>
+      </div>
+    </mat-card-content>
+
+
+    
+
+    <mat-card-actions *ngIf="currentState === 'Locations'"> 
       <button mat-button (click)="randomLocations()">RANDOMIZE</button>
+      <button mat-button (click)="selectLocation()" [disabled]="!selectedLocation?.name">GO</button>
+    </mat-card-actions>
+
+    <mat-card-actions *ngIf="currentState === 'Favourites'"> 
       <button mat-button (click)="selectLocation()" [disabled]="!selectedLocation?.name">GO</button>
     </mat-card-actions>
   </mat-card>   
@@ -32,8 +50,8 @@
 
   <section id="navigation-buttons"> 
     <div class="button-row">
-      <button class="buttons-space" [disabled]="currentState === 'Locations'" mat-raised-button color="primary" >Locations</button>
-      <button class="buttons-space" [disabled]="currentState === 'Search'" mat-raised-button color="primary">Search Locations</button>
-      <button class="buttons-space" [disabled]="currentState === 'Favourites'" mat-raised-button color="primary">Favourites</button>
+      <button class="buttons-space" (click)="locationNav()" [disabled]="currentState === 'Locations'" mat-raised-button color="primary" >Locations</button>
+      <button class="buttons-space" (click)="selectLocation()" [disabled]="currentState === 'Search'" mat-raised-button color="primary">Search Locations</button>
+      <button class="buttons-space" (click)="favLocation()" [disabled]="currentState === 'Favourites'" mat-raised-button color="primary">Favourites</button>
     </div>
   </section>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export enum LOCATION {
-	name = 1,
+	name,
 	latitude,
 	longitude,
 	marker,
@@ -38,7 +38,6 @@ export class GoogleHelperService {
      map: google.maps.Map<HTMLElement>, 
      marker: google.maps.Marker){
       infowindow.close();
-      marker.setVisible(false);
       const place = autocomplete.getPlace();
       if (!place.geometry) {
         window.alert("No details available for input: '" + place.name + "'");
@@ -53,7 +52,7 @@ export class GoogleHelperService {
       }
       
       marker.setPosition(place.geometry.location);
-      marker.setVisible(true);
+      
   
       let address = "";
   

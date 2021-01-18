@@ -19,56 +19,65 @@ export class LocationComponent implements OnInit {
   autocomplete: any = null;
   public cityLocations: Array<City> = [];
   public localStorageUser: string = '';
-  public emailFormControl = new FormControl('');
+  public autocompleteFormControl = new FormControl('');
   public selectedLocation: City = new City();
   public marker: any
   public currentState: 'Locations' | 'Search' | 'Favourites' = 'Locations'
   locations: Array<Array<any>> = [[]]
-  public subheading: string = 'Select the location you would like to see photos of or randize to get 10 new location'
-  public infowindow: google.maps.InfoWindow = new google.maps.InfoWindow();
-  public infowindowContent: HTMLElement = document.getElementById(
-     "infowindow-content"
-   ) as HTMLElement;
+  favLocations: Array<City> = []
+  public subheading: string = ''
+  // @ts-ignore
+  public locationCard: HTMLElement;
+  // @ts-ignore
+  public navBurrons: HTMLElement;
   constructor(public dialog: MatDialog, 
     private googleAPi: GoogleApiService, 
     private ngZone: NgZone,
     private googleHelper:  GoogleHelperService) { }
 
   ngOnInit(): void {
-    this.randomLocations()
-    this.map = this.googleHelper.initMap(-33.8688,151.2195, 13,  document.getElementById("map") as HTMLInputElement )
+    this.randomLocations()    
+    // @ts-ignore
+    this.favLocations = JSON.parse(localStorage.getItem("favroute")) || [] 
     setTimeout(()=>{
+      this.locationCard = document.getElementById("pac-location-card") as HTMLInputElement;
+      this.navBurrons = document.getElementById("navigation-buttons") as HTMLInputElement;
+      this.map = this.googleHelper.initMap(-33.8688,151.2195, 13,  document.getElementById("map") as HTMLInputElement )
       this.initGoogleMap(this.map)  
+      this.getLocation()
     },0)
     
  }
- async selectLocation(){ 
+
+ getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+     console.log("position", position)
+    });
+  }
+}
+
+ async selectLocation():Promise<void>{ 
     this.currentState = 'Search'
+    this.subheading = "Enter in a location to search for more photos"
     // @ts-ignore
     this.map.setCenter(new google.maps.LatLng(this.selectedLocation.lat,this.selectedLocation.lng));
     // const map = this.googleHelper.initMap(this.selectedLocation.lat,this.selectedLocation.lng, 16, document.getElementById("map") as HTMLInputElement)
     setTimeout(async ()=>{
+      this.clearControlePosition(this.map)
       await this.initialize(this.map) 
-    },0)
-  
- 
+    },0) 
  }
-
- async initialize(map:any) {
-  //Get mapArea in HTML, create map based around latlong
  
-  const navBurrons = document.getElementById("navigation-buttons") as HTMLInputElement;
-  const locationCard = document.getElementById("pac-location-card") as HTMLInputElement;
-  map.controls[google.maps.ControlPosition.TOP_CENTER].clear();
-  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(locationCard);
-  console.log(map.controls)
-  // map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(navBurrons);
+ async initialize(map:any): Promise<void> {
+  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(this.locationCard);
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(this.navBurrons);
   let locations = await this.googleAPi.nearbySearch(this.selectedLocation.lat, this.selectedLocation.lng)
 
   let marker, i;
-
-  let infowindow = this.infowindow
-
+  let infowindow: google.maps.InfoWindow = new google.maps.InfoWindow();
+   
+   this.autoComplete(map)
   for (i = 0; i < locations.length; i++) {
       marker = this.googleHelper.mapMarker({
         position: new google.maps.LatLng(locations[i][LOCATION.latitude], locations[i][LOCATION.longitude]),
@@ -83,8 +92,8 @@ export class LocationComponent implements OnInit {
               let html = '<h4>' + locations[i][LOCATION.name] + '</h4>';
               html += '<img src="' + locations[i][LOCATION.imageUrl] + '" />';
 
-              // infowindow.setContent(html);
-              // infowindow.open(map, marker);
+              infowindow.setContent(html);
+              infowindow.open(map, marker);
           }
       })(marker, i));
   }
@@ -95,39 +104,42 @@ export class LocationComponent implements OnInit {
    this.selectedLocation = event;
  }
 
+ locationNav(){  
+  this.currentState = 'Locations';
+  this.randomLocations()
+  this.clearControlePosition(this.map)
+  this.initGoogleMap(this.map)  
+ }
+
+ clearControlePosition(map:any){
+   map.controls[google.maps.ControlPosition.TOP_CENTER].clear()
+   map.controls[google.maps.ControlPosition.RIGHT_TOP].clear()
+   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].clear()
+ }
+
  initGoogleMap(map:any): void {
-  
-
-  const input = document.getElementById("pac-input") as HTMLInputElement;
-  const navBurrons = document.getElementById("navigation-buttons") as HTMLInputElement;
-  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(navBurrons);
-
-  const locationCard = document.getElementById("pac-location-card") as HTMLInputElement;
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationCard);
-  let marker = this.googleHelper.mapMarker({
-    map,
-    anchorPoint: new google.maps.Point(0, -29),
-  })
-  
+  this.subheading = 'Select the location you would like to see photos of or randize to get 10 new location'
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(this.navBurrons);
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.locationCard);
+}
+ 
+autoComplete(map: google.maps.Map<HTMLElement>){
+  const input = document.getElementById("pac-input") as HTMLInputElement;  
   const autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.bindTo("bounds", map);
-  // Set the data fields to return when the user selects a place.
-  autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
-  autocomplete.addListener("place_changed", () => this.googleHelper.autoComplete(this.infowindow, this.infowindowContent, autocomplete, map, marker));
 
+  autocomplete.bindTo("bounds", map);
+  autocomplete.setFields(["address_components", "geometry", "icon", "name"]);  
+  autocomplete.addListener("place_changed", async () => await this.autoCompleteLocationChange(autocomplete));
 }
 
-
-
-openDialog() {
-    console.log(`Dialog openDialog:`);
-    const dialogRef = this.dialog.open(HomeDialogComponent);
-    
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
+async autoCompleteLocationChange(autocomplete: google.maps.places.Autocomplete){
+  console.log(autocomplete.getPlace())
+  let place: google.maps.places.PlaceResult =autocomplete.getPlace()
+  // @ts-ignore
+  this.selectedLocation = {name: place.name, lat: place.geometry.location.lat(), lng: place.geometry.location.lng()}
+  await this.selectLocation()
+ }
+ 
   randomLocations(){
     this.cityLocations = []
     let i;
@@ -138,6 +150,27 @@ openDialog() {
       this.cityLocations.push(world_cities[randomNum])
     }    
     return this.cityLocations
+  }
+
+  saveToFav(){
+    this.favLocations.push(this.selectedLocation)    
+    localStorage.setItem("favroute",  JSON.stringify(this.favLocations))
+  }
+
+  favoriteCheck(): string {
+		return this.favLocations.find((item)=> item.name === this.selectedLocation.name && item.lat === this.selectedLocation.lat && item.lng === this.selectedLocation.lng) ? 'fa fa-star' : 'fa fa-star-o'
+  }
+  
+  favLocation(){
+    this.currentState = 'Favourites'
+    this.cityLocations =  this.favLocations
+    this.subheading = "Your list of Favourite locations"
+    this.clearControlePosition(this.map)
+    // @ts-ignore
+    this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(this.navBurrons);
+    // @ts-ignore
+    this.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(this.locationCard);
+    
   }
 }
 
