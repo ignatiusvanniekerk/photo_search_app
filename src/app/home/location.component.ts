@@ -62,7 +62,6 @@ export class LocationComponent implements OnInit {
     this.subheading = "Enter in a location to search for more photos"
     // @ts-ignore
     this.map.setCenter(new google.maps.LatLng(this.selectedLocation.lat,this.selectedLocation.lng));
-    // const map = this.googleHelper.initMap(this.selectedLocation.lat,this.selectedLocation.lng, 16, document.getElementById("map") as HTMLInputElement)
     setTimeout(async ()=>{
       this.clearControlePosition(this.map)
       await this.initialize(this.map) 

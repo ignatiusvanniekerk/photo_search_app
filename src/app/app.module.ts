@@ -15,6 +15,9 @@ import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatListModule } from '@angular/material/list'
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatIconModule } from '@angular/material/icon'
+import { MatToolbarModule } from '@angular/material/toolbar'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleHelperService } from 'src/services/google-helper.service';
 const SERVICES = [GoogleApiService,GoogleHelperService] 
@@ -39,7 +42,10 @@ const SERVICES = [GoogleApiService,GoogleHelperService]
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatToolbarModule
   ],
   providers: SERVICES,
   bootstrap: [AppComponent]
