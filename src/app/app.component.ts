@@ -1,9 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, Injector } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import * as _ from 'lodash';
-import { GoogleApiService } from 'src/services/google-api.service';
-import { GoogleHelperService } from 'src/services/google-helper.service';
-import { MapsAPILoader } from '@agm/core';
 
 export let AppInjector: Injector
 
@@ -22,18 +19,35 @@ export function setAppInjector(injector: Injector) {
 })
 
 export class AppComponent implements OnInit, OnDestroy {  
-
+/**
+ * side nav fields
+ */
   public fillerNav = [
   {name:'Locations', icon:'fa fa-list', routing:'location'}, 
   {name:'Search Locations', icon:'fa fa-search', routing:'search'}, 
   {name:'Favourites', icon:'fa fa-star', routing:'favourites'}]
+  /**
+   * media query
+   */
   public mobileQuery: MediaQueryList | undefined;
   private _mobileQueryListener!: () => void;
+
+  //////////////////////////////////////////////
+  //
+  //          CONSTRUCTOR
+  //
+  //////////////////////////////////////////////
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher){
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
    }
+
+  //////////////////////////////////////////////
+  //
+  //          ANGULAR LIFE HOOKS
+  //
+  //////////////////////////////////////////////   
   async ngOnInit(): Promise<void>{
   }
   ngOnDestroy(): void {

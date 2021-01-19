@@ -1,11 +1,7 @@
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { world_cities } from 'src/assets/world-cities';
 import { City } from 'src/model/City.model';
-import { GoogleApiService } from 'src/services/google-api.service';
-import { GoogleHelperService, LOCATION } from 'src/services/google-helper.service';
 import * as _ from 'lodash';
-import { MapsAPILoader } from '@agm/core';
 import { BaseComponent } from '../base-classes/base-google.component';
 @Component({
   selector: 'app-location',
@@ -17,18 +13,29 @@ export class LocationComponent extends BaseComponent{
   
   locations: Array<Array<any>> = [[]]
 
-  constructor() {
-      super()
-     }
+  //////////////////////////////////////////////
+  //
+  //          CONSTRUCTOR
+  //
+  //////////////////////////////////////////////
+  constructor() { super() }
 
-  
+  //////////////////////////////////////////////
+  //
+  //          OVERRIDE FUNCTION
+  //
+  //////////////////////////////////////////////
   async initialize(map:any): Promise<void> {
     this.randomLocations()        
     this.subheading = 'Select the location you would like to see photos of or randize to get 10 new location'
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.locationCard);
+    map.setCenter(new google.maps.LatLng(this.selectedLocation.lat,this.selectedLocation.lng));
   }
 
- getLocation() {
+  /**
+   * asks user for location will throw error if declined 
+   */
+   getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
        console.log("position", position)
@@ -37,11 +44,17 @@ export class LocationComponent extends BaseComponent{
       });
     }
 }
- 
+
+  /**
+   * saves the selected item to service 
+   */
  listChanges(event: City){
-   this.selectedLocation = event;
+  this.googleHelper.selectedLocation = event;
  }
 
+ /**
+  * randomized the locations
+  */
   randomLocations(){
     this.cityLocations = []
     let i;

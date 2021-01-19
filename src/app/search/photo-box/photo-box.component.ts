@@ -8,7 +8,17 @@ import { MatDialogRef, MAT_DIALOG_DATA }   from '@angular/material/dialog';
 })
 
 export class PhotoBoxComponent implements OnInit {
+
+  /**
+   * photo tiles
+   */
   tiles: Array<any> = [];
+
+  //////////////////////////////////////////////
+  //
+  //          CONSTRUCTOR
+  //
+  //////////////////////////////////////////////
   constructor(
     public dialogRef: MatDialogRef<PhotoBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -17,6 +27,11 @@ export class PhotoBoxComponent implements OnInit {
       })
      }
 
+  //////////////////////////////////////////////
+  //
+  //          ANGULAR LIFE HOOKS
+  //
+  //////////////////////////////////////////////
   ngOnInit(): void {
   }
 

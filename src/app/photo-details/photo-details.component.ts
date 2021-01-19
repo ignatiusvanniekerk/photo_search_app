@@ -9,6 +9,12 @@ import { GoogleApiService } from 'src/services/google-api.service';
 })
 export class PhotoDetailsComponent implements OnInit {
   public photoDetail:any;
+
+  //////////////////////////////////////////////
+  //
+  //          CONSTRUCTOR
+  //
+  //////////////////////////////////////////////
   constructor(private route: ActivatedRoute,private googleApiService:GoogleApiService, private router: Router) { }
 
   ngOnInit(): void {

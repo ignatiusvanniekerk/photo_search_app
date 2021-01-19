@@ -9,8 +9,18 @@ import { BaseComponent } from '../base-classes/base-google.component';
 })
 export class FavouritesComponent extends BaseComponent {
 
+  //////////////////////////////////////////////
+  //
+  //          CONSTRUCTOR
+  //
+  //////////////////////////////////////////////
   constructor() { super() }
-  
+
+  //////////////////////////////////////////////
+  //
+  //          OVERRIDE FUNCTION
+  //
+  //////////////////////////////////////////////
   async initialize(map:any): Promise<void> {
     this.cityLocations =  this.favLocations
     this.subheading = "Your list of Favourite locations"
@@ -20,6 +30,9 @@ export class FavouritesComponent extends BaseComponent {
     
   }
  
+  /**
+   * saves the selected item to service 
+   */
   listChanges(event: City){
     this.googleHelper.selectedLocation = this.selectedLocation = event;
   }
