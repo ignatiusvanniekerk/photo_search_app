@@ -42,8 +42,8 @@ export class LocationComponent implements OnInit {
     setTimeout(()=>{
       this.locationCard = document.getElementById("pac-location-card") as HTMLInputElement;
       this.navBurrons = document.getElementById("navigation-buttons") as HTMLInputElement;
-      this.map = this.googleHelper.initMap(-33.8688,151.2195, 13,  document.getElementById("map") as HTMLInputElement )
-      this.initGoogleMap(this.map)  
+      
+      this.initGoogleMap(this.googleHelper.map)  
       this.getLocation()
     },0)
     
@@ -61,10 +61,10 @@ export class LocationComponent implements OnInit {
     this.currentState = 'Search'
     this.subheading = "Enter in a location to search for more photos"
     // @ts-ignore
-    this.map.setCenter(new google.maps.LatLng(this.selectedLocation.lat,this.selectedLocation.lng));
+    this.googleHelper.map.setCenter(new google.maps.LatLng(this.selectedLocation.lat,this.selectedLocation.lng));
     setTimeout(async ()=>{
-      this.clearControlePosition(this.map)
-      await this.initialize(this.map) 
+      this.clearControlePosition(this.googleHelper.map)
+      await this.initialize(this.googleHelper.map) 
     },0) 
  }
  
@@ -106,8 +106,8 @@ export class LocationComponent implements OnInit {
  locationNav(){  
   this.currentState = 'Locations';
   this.randomLocations()
-  this.clearControlePosition(this.map)
-  this.initGoogleMap(this.map)  
+  this.clearControlePosition(this.googleHelper.map)
+  this.initGoogleMap(this.googleHelper.map)  
  }
 
  clearControlePosition(map:any){
@@ -164,11 +164,11 @@ async autoCompleteLocationChange(autocomplete: google.maps.places.Autocomplete){
     this.currentState = 'Favourites'
     this.cityLocations =  this.favLocations
     this.subheading = "Your list of Favourite locations"
-    this.clearControlePosition(this.map)
+    this.clearControlePosition(this.googleHelper.map)
     // @ts-ignore
-    this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(this.navBurrons);
+    this.googleHelper.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(this.navBurrons);
     // @ts-ignore
-    this.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(this.locationCard);
+    this.googleHelper.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(this.locationCard);
     
   }
 }

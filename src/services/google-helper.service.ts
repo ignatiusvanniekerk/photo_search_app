@@ -12,11 +12,11 @@ export enum LOCATION {
   providedIn: 'root'
 })
 export class GoogleHelperService {
- 
+  map: any
   constructor() { }
 
   initMap(lat: number, lng: number, zoom: number, mapElement: HTMLElement): google.maps.Map<HTMLElement>{
-    return  new google.maps.Map(
+    return  this.map = new google.maps.Map(
       mapElement,
       {
         center: { lat: lat, lng: lng },
