@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
+import { City } from 'src/model/City.model';
 
 export enum LOCATION {
-	name,
-	latitude,
-	longitude,
-	marker,
-	imageUrl,
+	name = 'name',
+	latitude = 'lat',
+	longitude = 'lng',
+	marker = 'pin',
+	imageUrl ='photoUrl',
 } 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleHelperService {
-  map: any
+  public selectedLocation: City = new City(); 
   constructor() { }
 
   initMap(lat: number, lng: number, zoom: number, mapElement: HTMLElement): google.maps.Map<HTMLElement>{
-    return  this.map = new google.maps.Map(
+    return  new google.maps.Map(
       mapElement,
       {
         center: { lat: lat, lng: lng },
@@ -30,13 +31,17 @@ export class GoogleHelperService {
    return new google.maps.Marker(markerDetails);
    }
 
-   
+   clearControlePosition(map:any):void{
+    map.controls[google.maps.ControlPosition.TOP_CENTER].clear()
+    map.controls[google.maps.ControlPosition.RIGHT_TOP].clear()
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].clear()
+  }
    autoComplete(
      infowindow: google.maps.InfoWindow, 
      infowindowContent:HTMLElement,
      autocomplete: google.maps.places.Autocomplete, 
      map: google.maps.Map<HTMLElement>, 
-     marker: google.maps.Marker){
+     marker: google.maps.Marker):void{
       infowindow.close();
       const place = autocomplete.getPlace();
       if (!place.geometry) {

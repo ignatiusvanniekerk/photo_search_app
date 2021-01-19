@@ -1,13 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { Injector, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent, setAppInjector } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GoogleApiService } from '../services/google-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LocationComponent } from './home/location.component';
-import { HomeDialogComponent } from './home/home-dialog/home-dialog.component';
 import { MatCommonModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -18,15 +16,24 @@ import { MatListModule } from '@angular/material/list'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatGridListModule } from '@angular/material/grid-list'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleHelperService } from 'src/services/google-helper.service';
-const SERVICES = [GoogleApiService,GoogleHelperService] 
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
+import { SearchComponent } from './search/search.component';
+import { FavouritesComponent } from './favourites/favourites.component';
+import { PhotoDetailsComponent } from './photo-details/photo-details.component';
+import { PhotoBoxComponent } from './search/photo-box/photo-box.component';
+const SERVICES = [GoogleApiService,GoogleHelperService, GoogleMapsAPIWrapper] 
 
 @NgModule({
   declarations: [
     AppComponent,
     LocationComponent,
-    HomeDialogComponent
+    SearchComponent,
+    FavouritesComponent,
+    PhotoDetailsComponent,
+    PhotoBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,9 +52,18 @@ const SERVICES = [GoogleApiService,GoogleHelperService]
     MatListModule,
     MatSidenavModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatGridListModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyABXedcAIlWdW2nh8sb9wHaedMT2YnCpps', libraries: ["places"]
+  }) 
+    
   ],
   providers: SERVICES,
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+	constructor(injector: Injector) {
+		setAppInjector(injector)
+	}
+}

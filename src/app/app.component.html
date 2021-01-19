@@ -10,13 +10,13 @@
       <mat-sidenav #snav [mode]="mobileQuery?.matches ? 'over' : 'side'"
                    [fixedInViewport]="mobileQuery?.matches" fixedTopGap="56">
         <mat-nav-list>
-          <a (click)="snav.close()" mat-list-item routerLink="nav.routing" *ngFor="let nav of fillerNav"> <i [ngClass]="nav.icon" class="i-space"aria-hidden="true"></i>   {{ nav.name}} 
+          <a (click)="snav.close()" mat-list-item routerLink="{{nav.routing}}" *ngFor="let nav of fillerNav"> <i [ngClass]="nav.icon" class="i-space"aria-hidden="true"></i>   {{ nav.name}} 
           </a>
         </mat-nav-list>
       </mat-sidenav>
   
       <mat-sidenav-content>
-        <div id="map"><router-outlet></router-outlet></div>
+        <router-outlet></router-outlet>
         
       </mat-sidenav-content>
     </mat-sidenav-container>
