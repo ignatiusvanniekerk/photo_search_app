@@ -3,14 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import * as _ from 'lodash';
 import { GoogleApi } from 'src/model/Google-api.model';
+import { GoogleHelperService } from './google-helper.service';
 export const GOOGLE_API_PREFEX = 'https://maps.googleapis.com/maps/api/place/'
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleApiService {
-  public resultState:Array<GoogleApi> = []
-  constructor(private http: HttpClient) { }
+  
+  constructor(public googleHelper: GoogleHelperService, private http: HttpClient) { }
 
   async nearbySearch(lat:number, lon: number, radius: number = 1500 ):Promise<any> {    
     try{
@@ -24,7 +25,8 @@ export class GoogleApiService {
           mapper.push({name:item.name, lat: item.geometry.location.lat, lng: item.geometry.location.lng, pin: 'http://labs.google.com/ridefinder/images/mm_20_purple.png', photoUrl: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photos}&key=${environment.google_api.key}`, details :item})
         }        
        })
-       this.resultState =_.cloneDeep(mapper)
+       this.googleHelper.resultState =_.cloneDeep(mapper)
+       localStorage.setItem('resultState',JSON.stringify(this.googleHelper.resultState))
       return mapper
     }catch(error){
       console.log('[ERROR] ',error)

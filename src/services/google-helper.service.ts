@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { City } from 'src/model/City.model';
+import { GoogleApi } from 'src/model/Google-api.model';
 
 export enum LOCATION {
 	name = 'name',
@@ -14,6 +15,7 @@ export enum LOCATION {
 })
 export class GoogleHelperService {
   public selectedLocation: City = new City(); 
+  public resultState:Array<GoogleApi> = []
   constructor() { }
 
   initMap(lat: number, lng: number, zoom: number, mapElement: HTMLElement): google.maps.Map<HTMLElement>{

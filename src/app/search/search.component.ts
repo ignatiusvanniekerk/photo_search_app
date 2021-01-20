@@ -89,7 +89,7 @@ export class SearchComponent extends BaseComponent {
           </span>
           </button></a></h4>`
           html +=`<img src="${locations[i][LOCATION.imageUrl]}"/>`
-            localStorage.setItem(locations[i].details.reference, locations[i].details)
+          
             infowindow.setContent(html);
             infowindow.open(map, marker);
         }
@@ -103,7 +103,7 @@ openPhotobox(): void{
   const dialogRef = this.dialog.open(PhotoBoxComponent,{
     width: '50%',
       height: '79%',
-    data: { result: this.googleAPi.resultState },
+    data: { result: this.googleHelper.resultState },
   });
 }
 
