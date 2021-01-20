@@ -1,0 +1,15 @@
+<mat-dialog-content class="mat-typography">
+    <mat-grid-list cols="4" rowHeight="100px">
+            <mat-grid-tile 
+            (click)="photoDetails(tile)"
+            *ngFor="let tile of tiles"           
+            [colspan]="tile.cols"
+            [rowspan]="tile.rows"
+            [style.backgroundImage]="'url('+ tile.imageUrl +')'">
+            <mat-grid-tile-footer>{{tile.name}}</mat-grid-tile-footer>
+        </mat-grid-tile>
+      </mat-grid-list>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

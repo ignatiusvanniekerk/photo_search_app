@@ -126,5 +126,8 @@
       }
     }
   },
-  "defaultProject": "pic-a-place"
+  "defaultProject": "pic-a-place",
+  "cli": {
+    "analytics": "6c83ce17-541a-4da7-81e2-0d5b5d50c129"
+  }
 }

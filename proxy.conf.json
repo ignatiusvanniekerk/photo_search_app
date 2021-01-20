@@ -1,0 +1,10 @@
+{
+    "/posts": {
+      "target": "https://maps.googleapis.com/maps/api/place/",
+      "secure": true,
+      "pathRewrite": {
+      "^/posts": ""
+    },
+      "changeOrigin": true
+    }
+  }

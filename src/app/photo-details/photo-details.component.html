@@ -1,0 +1,21 @@
+<div id="map"></div>
+<div class="blockCenter">
+    <mat-card class="photo-card" id="photo-card">
+        <mat-card-header>
+          <mat-card-title>Photo Detail</mat-card-title>
+          <mat-card-subtitle>{{photoDetail?.name}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{photoDetail?.photoUrl}}">
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item> Latitude : {{photoDetail?.lat}} </mat-list-item>
+                <mat-list-item> Longitude : {{photoDetail?.lng}} </mat-list-item>
+                <mat-list-item> Vicinity: {{photoDetail?.details.vicinity}} </mat-list-item>
+                <mat-list-item> Types of tags: {{photoDetail?.details.types}} </mat-list-item>
+            </mat-list>        
+        </mat-card-content>
+        <mat-card-actions>
+          <button (click)="back()" mat-button>BACK</button>
+        </mat-card-actions>
+      </mat-card>
+</div>

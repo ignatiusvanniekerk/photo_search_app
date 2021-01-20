@@ -1,0 +1,22 @@
+.photo-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-size: cover;
+  }
+
+  .blockCenter{
+    display:block;
+    margin:auto;
+}
+
+#map {
+    height: calc(100% - 20px);
+    margin: 10px;
+  }
+  
+  .mat-card-image {
+    max-height: 49vh;
+    margin: 0 -16px 16px -16px;
+}
