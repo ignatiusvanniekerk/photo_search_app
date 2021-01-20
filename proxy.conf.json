@@ -1,7 +1,7 @@
 {
     "/posts": {
       "target": "https://maps.googleapis.com/maps/api/place/",
-      "secure": true,
+      "secure": false,
       "pathRewrite": {
       "^/posts": ""
     },

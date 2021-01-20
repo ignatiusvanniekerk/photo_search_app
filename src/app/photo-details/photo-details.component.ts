@@ -51,8 +51,4 @@ export class PhotoDetailsComponent extends BaseComponent implements OnInit {
     this.router.navigate(['./search'])
   }
 
-  icon(){    
-    return `{background-image: 'url("${this.photoDetail.details.icon}")'}`
-  }
-
 }
