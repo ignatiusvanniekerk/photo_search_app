@@ -27,6 +27,7 @@ export class FavouritesComponent extends BaseComponent {
     this.googleHelper.clearControlePosition(this.map)    
     // @ts-ignore
     map.controls[google.maps.ControlPosition.RIGHT_TOP].push(this.locationCard);
+    map.setCenter(new google.maps.LatLng(this.selectedLocation.lat,this.selectedLocation.lng));
     
   }
  

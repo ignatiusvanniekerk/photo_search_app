@@ -18,7 +18,6 @@ export class GoogleApiService {
       let mapper:Array<GoogleApi> = []
       const path = `nearbysearch/json?location=${lat},${lon}&radius=${radius}&key=${environment.google_api.key}`
       let result: any = await this.http.get(proxyurl + GOOGLE_API_PREFEX + path).toPromise()
-      console.log('result', result)
        result.results.forEach((item: any)=>{
         let photos = _.get(item, 'photos[0].photo_reference', false)
         if(photos){

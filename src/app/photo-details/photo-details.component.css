@@ -1,4 +1,4 @@
-.example-card {
+.photo-card {
     max-width: 400px;
   }
   
@@ -9,4 +9,14 @@
   .blockCenter{
     display:block;
     margin:auto;
+}
+
+#map {
+    height: calc(100% - 20px);
+    margin: 10px;
+  }
+  
+  .mat-card-image {
+    max-height: 49vh;
+    margin: 0 -16px 16px -16px;
 }

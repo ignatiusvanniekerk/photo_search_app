@@ -48,7 +48,6 @@ export class SearchComponent extends BaseComponent {
    * when the input is changed and slected to start the prosess again 
    */
   async autoCompleteLocationChange(autocomplete: google.maps.places.Autocomplete){
-    console.log(autocomplete.getPlace())
     this.googleHelper.clearControlePosition(this.map)
     let place: google.maps.places.PlaceResult =autocomplete.getPlace()
     // @ts-ignore

@@ -38,7 +38,6 @@ export class LocationComponent extends BaseComponent{
    getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-       console.log("position", position)
       }, (error)=>{
         alert('Geolocation permission has been blocked as the user has ignored the permission prompt several times. This can be reset in Page Info which can be accessed by clicking the lock icon next to the URL. See https://www.chromestatus.com/features/6443143280984064 for more information.')
       });
@@ -61,7 +60,6 @@ export class LocationComponent extends BaseComponent{
     for (i = 0; i < 10; i++) {
       world_cities.length
       let randomNum = Math.floor(Math.random() * 5530) + 1;
-      console.log("world_cities[randomNum] " + world_cities.length, world_cities[randomNum])
       this.cityLocations.push(world_cities[randomNum])
     }    
     return this.cityLocations
