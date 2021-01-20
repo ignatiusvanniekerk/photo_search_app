@@ -1,6 +1,7 @@
 <mat-dialog-content class="mat-typography">
     <mat-grid-list cols="4" rowHeight="100px">
             <mat-grid-tile 
+            (click)="photoDetails(tile)"
             *ngFor="let tile of tiles"           
             [colspan]="tile.cols"
             [rowspan]="tile.rows"

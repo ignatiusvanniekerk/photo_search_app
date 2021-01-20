@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA }   from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-photo-box',
@@ -19,11 +20,11 @@ export class PhotoBoxComponent implements OnInit {
   //          CONSTRUCTOR
   //
   //////////////////////////////////////////////
-  constructor(
+  constructor(private router: Router,
     public dialogRef: MatDialogRef<PhotoBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.data.result.forEach((item:any)=>{
-        this.tiles.push({imageUrl: item.photoUrl, name: item.name, cols:2  , rows:2})
+        this.tiles.push({imageUrl: item.photoUrl, name: item.name, cols:2  , rows:2, reference:item.details.reference})
       })
      }
 
@@ -35,4 +36,8 @@ export class PhotoBoxComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  photoDetails(tile:any){
+    this.dialogRef.close()
+    this.router.navigate([`./photoDetails/${tile.reference}`])
+  }
 }

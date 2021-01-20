@@ -5,3 +5,8 @@
   .example-header-image {
     background-size: cover;
   }
+
+  .blockCenter{
+    display:block;
+    margin:auto;
+}
