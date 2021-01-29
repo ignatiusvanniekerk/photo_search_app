@@ -24,6 +24,7 @@ import { SearchComponent } from './search/search.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { PhotoDetailsComponent } from './photo-details/photo-details.component';
 import { PhotoBoxComponent } from './search/photo-box/photo-box.component';
+import { FlickrDisplayComponent } from './flickr-display/flickr-display.component';
 const SERVICES = [GoogleApiService,GoogleHelperService, GoogleMapsAPIWrapper] 
 
 @NgModule({
@@ -34,6 +35,7 @@ const SERVICES = [GoogleApiService,GoogleHelperService, GoogleMapsAPIWrapper]
     FavouritesComponent,
     PhotoDetailsComponent,
     PhotoBoxComponent,
+    FlickrDisplayComponent,
   ],
   imports: [
     BrowserModule,
